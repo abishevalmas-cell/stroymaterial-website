@@ -28,6 +28,7 @@ import {
   FileText,
   Repeat,
   ScanLine,
+  Zap,
 } from 'lucide-react'
 
 export default function HomePage() {
@@ -272,7 +273,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== 4. SOCIAL PROOF — Testimonials (moved up) ===== */}
+      {/* ===== 4. SOCIAL PROOF — Testimonials ===== */}
       <section className="py-20 bg-secondary/40">
         <div className="container mx-auto px-6">
           <ScrollReveal>
@@ -356,7 +357,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== 5. AI CAPABILITIES (condensed to 4) ===== */}
+      {/* ===== 5. AI CAPABILITIES ===== */}
       <section className="py-20">
         <div className="container mx-auto px-6">
           <ScrollReveal>
@@ -407,8 +408,141 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== 6. MOBILE APP — Full feature showcase ===== */}
+      {/* ===== 6. LOGISTICS CHAIN — Automated pipeline ===== */}
       <section className="py-20 bg-secondary/40">
+        <div className="container mx-auto px-6">
+          <ScrollReveal>
+            <div className="text-center max-w-2xl mx-auto mb-14">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Полная автоматизация —{' '}
+                <span className="text-primary">от оплаты до доставки</span>
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                После подтверждения заказа вся цепочка работает автоматически.
+                Каждый участник получает уведомления — ни одного звонка координатору.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          {/* Pipeline — horizontal on desktop, vertical on mobile */}
+          <div className="max-w-5xl mx-auto mb-12">
+            <div className="flex flex-col lg:flex-row lg:items-start gap-0">
+              {[
+                {
+                  role: 'Клиент',
+                  roleColor: 'bg-primary/10 text-primary',
+                  icon: Wallet,
+                  title: 'Оплата онлайн',
+                  desc: 'Клиент оплачивает заказ через чат или приложение. Деньги замораживаются до подтверждения доставки.',
+                  notify: 'Push + WhatsApp',
+                  notifyIcon: Bell,
+                },
+                {
+                  role: 'Поставщик',
+                  roleColor: 'bg-emerald-500/10 text-emerald-600',
+                  icon: Package,
+                  title: 'Сборка заказа',
+                  desc: 'Поставщик получает заявку в Telegram. Отмечает каждую позицию — система автоматически определяет готовность.',
+                  notify: 'Telegram-бот',
+                  notifyIcon: Send,
+                },
+                {
+                  role: 'Система',
+                  roleColor: 'bg-yellow-500/10 text-yellow-600',
+                  icon: Truck,
+                  title: 'Поиск водителя',
+                  desc: 'Когда заказ собран — заявка автоматически уходит водителям: адрес забора, адрес доставки, сумма, тип транспорта.',
+                  notify: 'Автопубликация',
+                  notifyIcon: Zap,
+                },
+                {
+                  role: 'Водитель',
+                  roleColor: 'bg-blue-500/10 text-blue-600',
+                  icon: MapPin,
+                  title: 'Доставка',
+                  desc: 'Водитель принимает заказ в Telegram. Обновляет статус: забрал → в пути → доставил. Клиент видит всё в реальном времени.',
+                  notify: 'Telegram-бот',
+                  notifyIcon: Send,
+                },
+                {
+                  role: 'Клиент',
+                  roleColor: 'bg-primary/10 text-primary',
+                  icon: Check,
+                  title: 'Получение',
+                  desc: 'Push-уведомление на каждом этапе: водитель назначен, груз в пути, доставлено. Подтвердил — заказ завершён.',
+                  notify: 'Push на каждый этап',
+                  notifyIcon: Bell,
+                },
+              ].map((step, i) => (
+                <div key={step.title} className="flex flex-col lg:flex-row lg:items-start flex-1">
+                  {/* Step card */}
+                  <ScrollReveal delay={i * 100}>
+                    <div className="glass rounded-2xl p-5 lg:min-h-[280px] flex flex-col">
+                      <div
+                        className={`inline-flex self-start rounded-full px-2.5 py-0.5 text-xs font-semibold mb-3 ${step.roleColor}`}
+                      >
+                        {step.role}
+                      </div>
+                      <div className="w-10 h-10 bg-accent-surface rounded-lg flex items-center justify-center mb-3 icon-animate">
+                        <step.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <h4 className="font-semibold mb-1.5">{step.title}</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                        {step.desc}
+                      </p>
+                      <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-border">
+                        <step.notifyIcon className="w-3.5 h-3.5 text-primary" />
+                        <span className="text-xs text-muted-foreground">{step.notify}</span>
+                      </div>
+                    </div>
+                  </ScrollReveal>
+
+                  {/* Connector between steps */}
+                  {i < 4 && (
+                    <ScrollReveal delay={i * 100 + 50}>
+                      {/* Desktop connector — horizontal */}
+                      <div className="hidden lg:flex flex-col items-center justify-center px-1 pt-16">
+                        <div className="w-6 h-px bg-primary/30" />
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center my-0.5">
+                          <Zap className="w-3 h-3 text-primary" />
+                        </div>
+                        <div className="w-6 h-px bg-primary/30" />
+                      </div>
+                      {/* Mobile connector — vertical */}
+                      <div className="flex lg:hidden flex-row items-center justify-center py-2">
+                        <div className="h-6 w-px bg-primary/30" />
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center mx-1">
+                          <Zap className="w-3 h-3 text-primary" />
+                        </div>
+                        <div className="h-6 w-px bg-primary/30" />
+                      </div>
+                    </ScrollReveal>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom stats */}
+          <ScrollReveal delay={500}>
+            <div className="flex flex-wrap items-center justify-center gap-10">
+              {[
+                { value: '0 звонков', label: 'координатору' },
+                { value: '5 этапов', label: 'отслеживания' },
+                { value: '3 канала', label: 'уведомлений' },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="text-2xl font-bold text-primary">{stat.value}</div>
+                  <div className="text-xs text-muted-foreground">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ===== 7. MOBILE APP — Full feature showcase ===== */}
+      <section className="py-20">
         <div className="container mx-auto px-6">
           {/* Top area: phone mockup + intro */}
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto mb-16">
@@ -635,8 +769,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== 7. FINAL CTA ===== */}
-      <section className="py-20">
+      {/* ===== 8. FINAL CTA ===== */}
+      <section className="py-20 bg-secondary/40">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center">
             <ScrollReveal>
